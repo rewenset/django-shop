@@ -1,0 +1,44 @@
+body {
+    background-color: rgba(230, 229, 171, 0.15);
+    width: 800px;
+    margin: auto;
+    min-height: 100vh;
+}
+
+#header {
+    background-color: rgba(230, 229, 171, 0.44);
+    padding: 5px;
+}
+
+#subheader {
+    background-color: rgba(230, 229, 171, 0.29);
+    padding: 5px;
+}
+
+#content {
+    height: 100%;
+}
+
+#sidebar {
+    margin: 0;
+    padding: 5px;
+    float:left;
+    width: 140px;
+    min-height: 80vh;
+}
+
+#main{
+    padding-top: 5px;
+    padding-left: 10px;
+    width: 640px;
+    float: right;
+}
+
+.item{
+    float:left;
+    width: 160px;
+}
+
+.product-detail{
+    padding: 10px;
+}
