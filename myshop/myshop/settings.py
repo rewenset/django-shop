@@ -89,9 +89,11 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en'
 
+from django.utils.translation import gettext_lazy as _
+
 LANGUAGES = (
-    ('en', 'English'),
-    ('es', 'Spanish'),
+    ('en', _('English')),
+    ('es', _('Spanish')),
 )
 
 TIME_ZONE = 'UTC'
