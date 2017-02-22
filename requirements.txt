@@ -12,6 +12,7 @@ olefile==0.44
 Pillow==4.0.0
 polib==1.0.8
 pytz==2016.10
+redis==2.10.5
 requests==2.13.0
 six==1.10.0
 tornado==4.2

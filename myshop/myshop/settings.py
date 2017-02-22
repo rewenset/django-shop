@@ -120,3 +120,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),  # specifies the directories where Django has to look for translation files
 )
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 1
