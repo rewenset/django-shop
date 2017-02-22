@@ -4,9 +4,10 @@
 {% block title %} Your shopping cart {% endblock %}
 
 {% block content %}
-    <h1>Your shopping cart</h1>
-    <table class="cart table table-striped table-hover">
-        <thead>
+    {% if cart %}
+        <h1>Your shopping cart</h1>
+        <table class="cart table table-striped table-hover">
+            <thead>
             <tr>
                 <th>Image</th>
                 <th>Product</th>
@@ -15,15 +16,16 @@
                 <th>Unit price</th>
                 <th>Price</th>
             </tr>
-        </thead>
+            </thead>
 
-        <tbody>
+            <tbody>
             {% for item in cart %}
                 {% with product=item.product %}
                     <tr>
                         <td>
                             <a href="{{ product.get_absolute_url }}">
-                                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+                                <img src="
+                                        {% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
                             </a>
                         </td>
                         <td>{{ product.name }}</td>
@@ -59,29 +61,30 @@
                 <td colspan="4"></td>
                 <td class="num">${{ cart.get_total_price_after_discount|floatformat:"2" }}</td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <p>Apply a coupon:</p>
-    <form action="{% url "coupons:apply" %}" method="post">
-        {{ coupon_apply_form }}
-        <input type="submit" value="Apply">
-        {% csrf_token %}
-    </form>
+        <p>Apply a coupon:</p>
+        <form action="{% url "coupons:apply" %}" method="post">
+            {{ coupon_apply_form }}
+            <input type="submit" value="Apply">
+            {% csrf_token %}
+        </form>
 
-    <p class="text-right">
-        <a href="{% url "shop:product_list" %}" class="button light btn btn-default ">Continue shopping</a>
-        <a href="{% url "orders:order_create" %}" class="button btn btn-success">Checkout</a>
-    </p>
+        <p class="text-right">
+            <a href="{% url "shop:product_list" %}" class="button light btn btn-default ">Continue shopping</a>
+            <a href="{% url "orders:order_create" %}" class="button btn btn-success">Checkout</a>
+        </p>
 
-    {% if recommended_products %}
+        {% if recommended_products %}
             <div class="recommendations">
                 <h3>People who bought this also bought</h3>
 
                 {% for p in recommended_products %}
                     <div class="item">
                         <a href="{{ p.get_absolute_url }}">
-                            <img src="{% if p.image %}{{ p.image.url }}{% else %}{% static "img/no_image.png"  %}{% endif %}">
+                            <img src="
+                                    {% if p.image %}{{ p.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
                         </a>
                         <p><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></p>
                     </div>
@@ -89,4 +92,12 @@
 
             </div>
         {% endif %}
+
+    {% else %}
+        <h1>Your shopping cart is empty</h1>
+        <p class="text-right">
+            <a href="{% url "shop:product_list" %}" class="button light btn btn-default ">Continue shopping</a>
+        </p>
+    {% endif %}
+
 {% endblock %}

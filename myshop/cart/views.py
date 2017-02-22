@@ -32,18 +32,21 @@ def cart_remove(request, product_id):
 
 def cart_detail(request):
     cart = Cart(request)
-    for item in cart:
-        item['update_quantity_form'] = CartAddProductForm(
-                                initial={'quantity': item['quantity'],
-                                         'update': True})
-    coupon_apply_form = CouponsApplyForm()
+    context = {}
+    if len(cart):
+        for item in cart:
+            item['update_quantity_form'] = CartAddProductForm(
+                                    initial={'quantity': item['quantity'],
+                                             'update': True})
+        coupon_apply_form = CouponsApplyForm()
 
-    r = Recommender()
-    cart_products = [item['product'] for item in cart]
-    recommended_products = r.suggest_product_for(cart_products)
+        r = Recommender()
+        cart_products = [item['product'] for item in cart]
+        recommended_products = r.suggest_product_for(cart_products)
+        context = {'cart': cart,
+                   'coupon_apply_form': coupon_apply_form,
+                   'recommended_products': recommended_products}
 
     return render(request,
                   'cart/detail.html',
-                  {'cart': cart,
-                   'coupon_apply_form': coupon_apply_form,
-                   'recommended_products': recommended_products})
+                  context)
